@@ -3,7 +3,7 @@
  *
  * Leonardo Quatrin Campagnolo
  * . campagnolo.lq@gmail.com
-**/
+ **/
 #include "defines.h"
 #include "renderingmanager.h"
 #include "volrenderbase.h"
@@ -21,6 +21,7 @@
 #include "volrendernull.h"
 // 1-pass - Ray Casting - GLSL
 #include "structured/rc1pass/rc1prenderer.h"
+#include "structured/rc1piso/rc1pisorenderer.h"
 #include "structured/rc1pcrtgt/crtgtrenderer.h"
 #include "structured/rc1pdosct/dosrcrenderer.h"
 #include "structured/rc1pextbsd/ebsrenderer.h"
@@ -39,15 +40,16 @@ ApplicationGLFW app;
 #endif
 #endif
 
-
-float k (float x) {
+float k(float x)
+{
   x = abs(x);
   return x > 1.f ? 0.0f : 1.0f - x;
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-  if (!app.Init(argc, argv)) return 1;
+  if (!app.Init(argc, argv))
+    return 1;
 
   RenderingManager::Instance()->InitGL();
 
@@ -57,6 +59,7 @@ int main (int argc, char **argv)
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
   // 1-pass - Ray Casting - GLSL
   RenderingManager::Instance()->AddVolumeRenderer(new RayCasting1Pass());
+  RenderingManager::Instance()->AddVolumeRenderer(new RayCasting1PassIso());
   RenderingManager::Instance()->AddVolumeRenderer(new RC1PConeLightGroundTruthSteps());
   RenderingManager::Instance()->AddVolumeRenderer(new RC1PConeTracingDirOcclusionShading());
   RenderingManager::Instance()->AddVolumeRenderer(new RC1PExtinctionBasedShading());
