@@ -194,7 +194,7 @@ void RayCasting1PassIso::FillParameterSpace(ParameterSpace &pspace)
   pspace.AddParameterDimension(new ParameterRangeFloat("StepSize", &m_u_step_size, 0.05f, 1.5f, 0.1f));
 }
 
-void RayCasting1PassIso::SetImGuiComponents() 2
+void RayCasting1PassIso::SetImGuiComponents()
 {
   ImGui::Separator();
 
